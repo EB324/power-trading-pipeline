@@ -1,0 +1,11 @@
+[project]
+name = "power-trading-pipeline"
+version = "0.1.0"
+description = "电力价格驱动因子数据管道"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "openpyxl",
+    "pyyaml",
+    "streamlit",
+]

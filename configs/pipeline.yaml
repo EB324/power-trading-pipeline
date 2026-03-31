@@ -1,0 +1,69 @@
+# ═══════════════════════════════════════════════════════
+# 电力价格驱动因子数据管道 — 配置文件
+# 改这里不用改代码
+# ═══════════════════════════════════════════════════════
+
+# ─── 数据源定义 ───
+# 每个 source 对应 data/raw/ 下的一个子文件夹
+# 管道会自动扫描该文件夹中的 .csv / .xlsx 文件
+
+sources:
+  weather:
+    folder: "weather"
+    time_column: "datetime"
+    description: "气象数据"
+    fields:
+      - "temperature_c  — 气温 (°C)"
+      - "humidity_pct   — 相对湿度 (%)"
+      - "wind_speed_ms  — 风速 (m/s)"
+      - "solar_rad_whm2 — 太阳辐照 (Wh/m²)"
+      - "precipitation_mm — 降水量 (mm)"
+
+  fuel_price:
+    folder: "fuel_price"
+    time_column: "datetime"
+    description: "燃料价格"
+    fields:
+      - "gas_jkm_usd_mmbtu  — JKM LNG 现货 (USD/MMBtu)"
+      - "coal_newc_usd_ton   — 纽卡斯尔动力煤 (USD/ton)"
+      - "oil_brent_usd_bbl   — 布伦特原油 (USD/bbl)"
+
+  load_actual:
+    folder: "load_actual"
+    time_column: "datetime"
+    description: "电力负荷"
+    fields:
+      - "load_mw         — 系统负荷 (MW)"
+      - "load_forecast_mw — 日前负荷预测 (MW)"
+
+  renewable_output:
+    folder: "renewable_output"
+    time_column: "datetime"
+    description: "新能源出力"
+    fields:
+      - "wind_mw    — 风电出力 (MW)"
+      - "solar_mw   — 光伏出力 (MW)"
+
+  carbon_price:
+    folder: "carbon_price"
+    time_column: "datetime"
+    description: "碳排放权价格"
+    fields:
+      - "carbon_cny_ton — 全国碳市场价格 (CNY/ton)"
+      - "eu_ets_eur_ton — EU ETS 参考 (EUR/ton)"
+
+# ─── 合并参数 ───
+merge:
+  time_resolution: "1h"    # 对齐粒度: 15min / 30min / 1h / 1D
+  join_method: "outer"      # outer=保留所有时间点, inner=仅保留交集
+
+# ─── 分析参数 ───
+analysis:
+  summary_stats:
+    windows: [7, 30]        # 滚动窗口（天数）
+
+  correlation:
+    method: "pearson"       # pearson / spearman / kendall
+
+  factor_report:
+    top_n: 10               # 相关性排名前 N

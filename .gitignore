@@ -1,0 +1,23 @@
+# 数据文件（通过 OneDrive 同步，不进 Git）
+data/raw/**/*.csv
+data/raw/**/*.xlsx
+data/raw/**/*.xls
+data/processed/
+outputs/
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Excel 临时文件（OneDrive 常见）
+~$*
+*.tmp
+*.~*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
