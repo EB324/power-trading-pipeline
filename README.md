@@ -112,3 +112,8 @@ power-trading-pipeline/
 - 确保文件同步完成后再运行
 - 不要多人同时运行 `run.py`
 - `data/raw/` 里的文件一旦放入不要修改，有新版本请放新文件
+
+## 更多文档
+
+- [如何添加新分析模块](docs/add_new_analysis.md) — 插件式扩展，不用改已有代码
+- [OneDrive / SharePoint 使用指南](docs/onedrive_guide.md) — 团队协作和文件同步注意事项
